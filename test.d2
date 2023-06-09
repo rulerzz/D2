@@ -1,0 +1,93 @@
+# Names can have spaces, underscores, single hyphen's or a special character
+
+x-name  y'name  z_a_name
+
+# double hyphen establishes a connection -- 
+# a -- b -- c
+
+# or with direction
+d -> e -> f
+i --> j --> k --> i
+l <-> m 
+# Connections can be made using 
+# -- no direction
+# -> uni direction
+# <- uni direction
+# <-> bi direction
+
+Pg: obj1
+Pg.shape: cloud
+
+N2: obj2
+N2.shape: rectangle
+
+# Add labels in connections using :
+n -- o: Kept in sync
+
+Database -> S3: backup1
+Database <-> S3: sync
+Database -> S3: backup2
+
+EC3 -> AWS: kubernetes
+EC1 -> AWS <- EC2:docker
+AWS -- Database:storage
+Database --> PostgresCLI:execute query
+
+# cycles
+Stage One -> Stage Two -> Stage Three -> Stage Four
+Stage Four -> Stage One: repeat
+
+a -> b: To err is human, to moo bovine {
+    target-arrowhead: * {
+      shape: diamond
+    }
+  }
+
+  b <-> c: "Reality is just a crutch for people who can't handle science fiction" {
+    source-arrowhead.label: 1
+    target-arrowhead: * {
+      shape: diamond
+      style.filled: true
+    }
+  }
+ 
+  d -> a -> c
+
+#   containers
+server
+# Declares a shape inside of another shape
+server.process
+
+# Can declare the container and child in same line
+im a parent.im a child
+
+# Since connections can also declare keys, this works too
+apartment.Bedroom.Bathroom -> office.Spare Room.Bathroom: Portal
+im a parent.im a child -> apartment.Bedroom.Bathroom:test
+
+# Nested syntax
+clouds: {
+    aws: {
+      load_balancer -> api
+      api -> db
+    }
+    gcloud: {
+      auth -> db
+    }
+    azure:{
+        ci/cd -> db
+    }
+  
+    gcloud -> aws
+    gcloud -> azure
+  }
+
+# Refer parents
+christmas: {
+    presents
+  }
+  birthdays: {
+    presents
+    _.christmas.presents -> presents: regift
+    _.christmas.style.fill: "#ACE1AF"
+  }
